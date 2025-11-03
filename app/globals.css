@@ -1,0 +1,71 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --radius: 1rem;
+}
+
+@layer base {
+  * {
+    @apply border-border-light;
+  }
+  
+  body {
+    @apply bg-background-light text-gray-900 transition-colors duration-300;
+  }
+  
+  .dark body {
+    @apply bg-background-dark text-gray-100;
+  }
+  
+  .dark * {
+    @apply border-border-dark;
+  }
+}
+
+/* 自定义滚动条 - 深色主题风格 */
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+
+::-webkit-scrollbar-track {
+  @apply bg-gray-900;
+}
+
+::-webkit-scrollbar-thumb {
+  @apply bg-gray-700 rounded-lg;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  @apply bg-gray-600;
+}
+
+.dark ::-webkit-scrollbar-track {
+  @apply bg-gray-950;
+}
+
+.dark ::-webkit-scrollbar-thumb {
+  @apply bg-gray-800;
+}
+
+.dark ::-webkit-scrollbar-thumb:hover {
+  @apply bg-gray-700;
+}
+
+/* 焦点可见性 */
+*:focus-visible {
+  @apply outline-2 outline-offset-2 outline-primary;
+}
+
+/* 渐变背景效果 */
+.gradient-bg {
+  background: linear-gradient(135deg, #0A0E1A 0%, #1a1f3a 100%);
+}
+
+.gradient-card {
+  background: linear-gradient(135deg, rgba(14, 165, 233, 0.1) 0%, rgba(34, 211, 238, 0.05) 100%);
+}
+
+
