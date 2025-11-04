@@ -12,7 +12,7 @@ const navigation = [
   { name: "首页", href: "/", available: true },
   { name: "Binance", href: "/binance", available: true },
   { name: "OKX", href: "/okx", available: true },
-  { name: "文章", href: "/articles", available: false },
+  { name: "文章", href: "/articles", available: true },
   { name: "新手入门", href: "/learn", available: false },
   { name: "FAQ", href: "/faq", available: false },
 ];

@@ -1,4 +1,3 @@
-import Link from "next/link";
 import { Badge } from "@/components/ui/badge";
 import { Clock } from "lucide-react";
 import { Article } from "@/lib/types";
@@ -20,8 +19,7 @@ export function ArticleCard({ article, layout = "horizontal" }: ArticleCardProps
   // 横向布局（图片+标题）
   if (layout === "horizontal") {
     return (
-      <Link href={`/articles/${article.slug || article.id}`}>
-        <div className="group cursor-pointer hover:bg-gray-50 dark:hover:bg-gray-900/50 -mx-4 px-4 py-5 transition-all duration-300">
+      <div className="group cursor-pointer hover:bg-gray-50 dark:hover:bg-gray-900/50 -mx-4 px-4 py-5 transition-all duration-300">
           <div className="flex items-start justify-between">
             {/* 左侧内容 */}
             <div className="flex-1 min-w-0 flex flex-col min-h-[110px] max-w-[65%] mr-8">
@@ -52,26 +50,44 @@ export function ArticleCard({ article, layout = "horizontal" }: ArticleCardProps
 
             {/* 右侧图片 - 加大尺寸 */}
             <div className="w-[160px] h-[110px] rounded-xl overflow-hidden flex-shrink-0 bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 relative group-hover:border-primary/40 group-hover:shadow-md transition-all duration-300">
-              <div className="absolute inset-0 bg-gradient-to-br from-primary/8 to-primary-light/8" />
-              <div className="absolute inset-0 flex items-center justify-center text-gray-300 dark:text-gray-600">
-                <svg className="w-10 h-10 opacity-40" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
-                </svg>
-              </div>
+              {article.coverImage || article.imgList?.[0] ? (
+                <img 
+                  src={article.coverImage || article.imgList?.[0]} 
+                  alt={article.title}
+                  className="w-full h-full object-cover"
+                  loading="lazy"
+                />
+              ) : (
+                <>
+                  <div className="absolute inset-0 bg-gradient-to-br from-primary/8 to-primary-light/8" />
+                  <div className="absolute inset-0 flex items-center justify-center text-gray-300 dark:text-gray-600">
+                    <svg className="w-10 h-10 opacity-40" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                    </svg>
+                  </div>
+                </>
+              )}
             </div>
           </div>
         </div>
-      </Link>
     );
   }
 
   // 竖向布局（默认保留，用于精选等）
   return (
-    <Link href={`/articles/${article.slug || article.id}`}>
-      <div className="group cursor-pointer">
+    <div className="group cursor-pointer">
         <div className="bg-white dark:bg-gray-900 rounded-2xl overflow-hidden border border-gray-200 dark:border-gray-800 hover:border-primary hover:shadow-lg transition-all">
           {/* 封面 */}
-          <div className="aspect-video bg-gradient-to-br from-primary/10 to-primary-light/10" />
+          <div className="aspect-video bg-gradient-to-br from-primary/10 to-primary-light/10 relative">
+            {article.coverImage || article.imgList?.[0] ? (
+              <img 
+                src={article.coverImage || article.imgList?.[0]} 
+                alt={article.title}
+                className="w-full h-full object-cover"
+                loading="lazy"
+              />
+            ) : null}
+          </div>
           
           {/* 内容 */}
           <div className="p-5">
@@ -91,7 +107,6 @@ export function ArticleCard({ article, layout = "horizontal" }: ArticleCardProps
           </div>
         </div>
       </div>
-    </Link>
   );
 }
 

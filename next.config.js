@@ -1,8 +1,9 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  output: 'export',  // 启用静态导出
+  // 启用静态导出 - 弹窗模式不需要动态路由
+  output: 'export',
   images: {
-    unoptimized: true,  // 静态导出需要禁用图片优化
+    unoptimized: true,  // 保留此配置，因为使用外部图片源
   },
 };
 

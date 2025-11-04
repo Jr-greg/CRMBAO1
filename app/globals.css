@@ -184,4 +184,140 @@
   @apply bg-gray-50 dark:bg-gray-900 font-semibold;
 }
 
+/* 文章正文优化样式 */
+.article-body h1,
+.article-body h2,
+.article-body h3,
+.article-body h4,
+.article-body h5,
+.article-body h6 {
+  @apply font-bold text-gray-900 dark:text-gray-100 mt-10 mb-5;
+  line-height: 1.5;
+}
+
+.article-body h1 {
+  @apply text-3xl mb-6 mt-12;
+  line-height: 1.4;
+}
+
+.article-body h2 {
+  @apply text-2xl mb-5 mt-10;
+  padding-bottom: 0.5rem;
+  border-bottom: 1px solid rgba(229, 231, 235, 0.8);
+  line-height: 1.4;
+}
+
+.dark .article-body h2 {
+  border-bottom-color: rgba(55, 65, 81, 0.8);
+}
+
+.article-body h3 {
+  @apply text-xl mb-4 mt-8;
+  line-height: 1.45;
+}
+
+.article-body h4 {
+  @apply text-lg mb-3 mt-6;
+  line-height: 1.5;
+}
+
+.article-body p {
+  @apply mb-6 leading-[1.8];
+}
+
+.article-body a {
+  @apply text-primary underline hover:text-primary/80 transition-colors;
+}
+
+.article-body strong,
+.article-body b {
+  @apply font-semibold text-gray-900 dark:text-gray-100;
+}
+
+.article-body em,
+.article-body i {
+  @apply italic;
+}
+
+.article-body ul,
+.article-body ol {
+  @apply mb-6 pl-8 space-y-2;
+}
+
+.article-body ul {
+  @apply list-disc;
+}
+
+.article-body ol {
+  @apply list-decimal;
+}
+
+.article-body li {
+  @apply leading-[1.8];
+  color: inherit;
+}
+
+.article-body blockquote {
+  @apply my-6 pl-4 py-3 border-l-4 border-primary bg-gray-50 dark:bg-gray-900/50 italic;
+  border-radius: 0 8px 8px 0;
+  color: inherit;
+}
+
+.article-body pre {
+  @apply my-6 p-4 bg-gray-900 dark:bg-gray-950 rounded-lg overflow-x-auto;
+}
+
+.article-body code {
+  @apply px-1.5 py-0.5 bg-gray-100 dark:bg-gray-800 text-primary rounded text-sm font-mono;
+}
+
+.article-body pre code {
+  @apply bg-transparent p-0 text-gray-100;
+}
+
+.article-body img {
+  @apply my-8 rounded-xl w-full h-auto shadow-lg;
+  max-height: 600px;
+  object-fit: cover;
+}
+
+.article-body figure {
+  @apply my-8;
+}
+
+.article-body figcaption {
+  @apply text-sm text-gray-500 dark:text-gray-400 text-center mt-2 italic;
+}
+
+.article-body hr {
+  @apply my-8 border-gray-200 dark:border-gray-800;
+}
+
+.article-body table {
+  @apply w-full my-6 border-collapse;
+}
+
+.article-body th,
+.article-body td {
+  @apply border border-gray-200 dark:border-gray-800 px-4 py-3 text-left;
+}
+
+.article-body th {
+  @apply bg-gray-50 dark:bg-gray-900 font-semibold text-gray-900 dark:text-gray-100;
+}
+
+.article-body td {
+  color: inherit;
+}
+
+/* 移除文章内第一个元素的上边距 */
+.article-body > *:first-child {
+  margin-top: 0 !important;
+}
+
+/* 移除文章内最后一个元素的下边距 */
+.article-body > *:last-child {
+  margin-bottom: 0 !important;
+}
+
 

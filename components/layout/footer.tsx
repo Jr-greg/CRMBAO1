@@ -7,7 +7,7 @@ const footerLinks = {
   product: {
     title: "产品",
     links: [
-      { name: "文章中心", href: "/articles", available: false },
+      { name: "文章中心", href: "/articles", available: true },
       { name: "新手入门", href: "/learn", available: false },
       { name: "常见问题", href: "/faq", available: false },
     ],

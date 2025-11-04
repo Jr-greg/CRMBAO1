@@ -18,6 +18,9 @@ export interface Article {
   views?: number;                 // 浏览量（可选）
   featured?: boolean;             // 是否精选
   slug?: string;                  // URL 友好的标识符
+  link?: string;                  // 外部链接
+  imgList?: string[];             // 图片列表
+  channel?: string;               // 来源渠道
 }
 
 export interface ArticleCategory {
@@ -34,6 +37,55 @@ export interface ArticleListResponse {
   page: number;
   pageSize: number;
   categories?: ArticleCategory[];
+}
+
+// 真实 API 响应类型
+export interface ApiArticleItem {
+  id: number;
+  title: string;
+  excerpt: string;
+  author: string;
+  link: string;
+  channel: string;
+  channel_id: number;
+  img_list: string[];
+  publish_at: number;
+}
+
+export interface ApiArticleResponse {
+  code: number;
+  data: {
+    list: ApiArticleItem[];
+    meta: {
+      next_token: string;
+      result_count: number;
+    };
+  };
+  msg: string;
+}
+
+// 文章详情 API 响应类型
+export interface ApiArticleDetail {
+  news_id: number;
+  title: string;
+  excerpt: string;
+  content: string;  // HTML 格式的正文
+  author: string;
+  link: string;
+  channel: string;
+  channel_id: number;
+  business_type: number;
+  keywords: string;
+  img_list: string[];
+  publish_at: number;
+}
+
+export interface ApiArticleDetailResponse {
+  code: number;
+  data: {
+    data: ApiArticleDetail;  // 注意：嵌套了两层 data
+  };
+  msg: string;
 }
 
 
