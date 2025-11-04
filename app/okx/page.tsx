@@ -78,7 +78,7 @@ const steps = [
 export default function OKXPage() {
   return (
     <>
-      <FloatingCTA exchangeName="OKX" inviteCode="OKXSTART" />
+      <FloatingCTA exchangeName="OKX" inviteCode="CRMBAO" registerLink="https://www.afibbjgrubxx.com/join/CRMBAO" />
       <BottomBar />
 
       {/* Hero 区域 */}
@@ -104,8 +104,8 @@ export default function OKXPage() {
             <div className="flex items-start gap-6 mb-8">
               {/* Logo */}
               <div className="relative">
-                <div className="h-24 w-24 rounded-[24px] bg-gradient-to-br from-gray-900 to-gray-700 dark:from-white dark:to-gray-300 shadow-2xl flex items-center justify-center">
-                  <span className="text-4xl font-bold text-white dark:text-gray-900">O</span>
+                <div className="h-24 w-24 rounded-[24px] overflow-hidden shadow-2xl flex items-center justify-center">
+                  <img src="/images/okx.png" alt="OKX" className="w-full h-full object-cover" />
                 </div>
                 {/* 角标 */}
                 <div className="absolute -top-2 -right-2">
@@ -151,7 +151,7 @@ export default function OKXPage() {
                     asChild
                   >
                     <a
-                      href="#"
+                      href="https://www.afibbjgrubxx.com/join/CRMBAO"
                       target="_blank"
                       rel="nofollow sponsored noopener noreferrer"
                     >
@@ -165,7 +165,7 @@ export default function OKXPage() {
                     asChild
                   >
                     <a
-                      href="#"
+                      href="https://www.afibbjgrubxx.com/join/CRMBAO"
                       target="_blank"
                       rel="nofollow sponsored noopener noreferrer"
                     >
@@ -200,47 +200,12 @@ export default function OKXPage() {
         <div className="container mx-auto px-4">
           <div className="max-w-6xl mx-auto">
             <Tabs defaultValue="register" className="w-full">
-              {/* Tab 导航 */}
-              <div className="mb-12">
+              {/* Tab 导航 - 隐藏 */}
+              {/* <div className="mb-12">
                 <TabsList className="inline-flex flex-wrap gap-2 bg-transparent p-0 h-auto">
-                  <TabsTrigger
-                    value="register"
-                    className="data-[state=active]:bg-gradient-to-r data-[state=active]:from-primary data-[state=active]:to-primary-light data-[state=active]:text-white rounded-full px-6 py-2.5 shadow-sm"
-                  >
-                    注册教程
-                  </TabsTrigger>
-                  <TabsTrigger
-                    value="ios"
-                    className="data-[state=active]:bg-gradient-to-r data-[state=active]:from-primary data-[state=active]:to-primary-light data-[state=active]:text-white rounded-full px-6 py-2.5 shadow-sm"
-                  >
-                    iOS 下载
-                  </TabsTrigger>
-                  <TabsTrigger
-                    value="android"
-                    className="data-[state=active]:bg-gradient-to-r data-[state=active]:from-primary data-[state=active]:to-primary-light data-[state=active]:text-white rounded-full px-6 py-2.5 shadow-sm"
-                  >
-                    Android 下载
-                  </TabsTrigger>
-                  <TabsTrigger
-                    value="tutorial"
-                    className="data-[state=active]:bg-gradient-to-r data-[state=active]:from-primary data-[state=active]:to-primary-light data-[state=active]:text-white rounded-full px-6 py-2.5 shadow-sm"
-                  >
-                    新手教程
-                  </TabsTrigger>
-                  <TabsTrigger
-                    value="fees"
-                    className="data-[state=active]:bg-gradient-to-r data-[state=active]:from-primary data-[state=active]:to-primary-light data-[state=active]:text-white rounded-full px-6 py-2.5 shadow-sm"
-                  >
-                    费率 & 优惠
-                  </TabsTrigger>
-                  <TabsTrigger
-                    value="faq"
-                    className="data-[state=active]:bg-gradient-to-r data-[state=active]:from-primary data-[state=active]:to-primary-light data-[state=active]:text-white rounded-full px-6 py-2.5 shadow-sm"
-                  >
-                    常见问题
-                  </TabsTrigger>
+                  ...
                 </TabsList>
-              </div>
+              </div> */}
 
               {/* 注册教程 */}
               <TabsContent value="register">
@@ -298,7 +263,7 @@ export default function OKXPage() {
                         <AlertDescription>
                           注册时填写邀请码{" "}
                           <code className="mx-1 px-2 py-1 rounded bg-primary/10 text-primary font-mono font-bold">
-                            OKXSTART
+                            CRMBAO
                           </code>
                           可享手续费折扣等专属优惠
                         </AlertDescription>
@@ -307,17 +272,17 @@ export default function OKXPage() {
                   </Alert>
 
                   {/* 截图占位 */}
-                  <div className="bg-gradient-to-br from-gray-100 to-gray-200 dark:from-gray-800 dark:to-gray-900 rounded-3xl h-96 flex items-center justify-center">
+                  {/* <div className="bg-gradient-to-br from-gray-100 to-gray-200 dark:from-gray-800 dark:to-gray-900 rounded-3xl h-96 flex items-center justify-center">
                     <div className="text-center">
                       <Smartphone className="h-16 w-16 text-gray-400 mx-auto mb-4" />
                       <span className="text-gray-500">注册流程演示图</span>
                     </div>
-                  </div>
+                  </div> */}
                 </div>
               </TabsContent>
 
               {/* iOS 下载 */}
-              <TabsContent value="ios">
+              {/* <TabsContent value="ios">
                 <Card className="border-0 shadow-xl rounded-3xl overflow-hidden">
                   <CardHeader className="bg-gradient-to-r from-blue-500/10 to-cyan-500/10 border-b border-gray-200 dark:border-gray-800">
                     <div className="flex items-center gap-4">
@@ -625,7 +590,7 @@ export default function OKXPage() {
                     asChild
                   >
                     <a
-                      href="#"
+                      href="https://www.afibbjgrubxx.com/join/CRMBAO"
                       target="_blank"
                       rel="nofollow sponsored noopener noreferrer"
                     >
@@ -638,7 +603,7 @@ export default function OKXPage() {
                     asChild
                   >
                     <a
-                      href="#"
+                      href="https://www.afibbjgrubxx.com/join/CRMBAO"
                       target="_blank"
                       rel="nofollow sponsored noopener noreferrer"
                     >

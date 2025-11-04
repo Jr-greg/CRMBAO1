@@ -1,19 +1,25 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect, useRef } from "react";
 import Link from "next/link";
 import { Input } from "@/components/ui/input";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import { Search, BookOpen, Sparkles, TrendingUp, ArrowRight } from "lucide-react";
+import { Search, TrendingUp } from "lucide-react";
 import { ArticleCard } from "@/components/articles/article-card";
 import { dummyArticles, dummyCategories } from "@/lib/dummy-articles";
 
 export default function ArticlesPage() {
   const [selectedCategory, setSelectedCategory] = useState<string>("all");
   const [searchQuery, setSearchQuery] = useState<string>("");
+  const [showSearch, setShowSearch] = useState<boolean>(false);
+  const [displayCount, setDisplayCount] = useState<number>(15);
+  const loadMoreRef = useRef<HTMLDivElement>(null);
   
-  // 筛选文章
+  // 头条文章（第一篇featured，不受分类影响）
+  const topStory = dummyArticles.find(a => a.featured);
+
+  // 筛选文章（受分类和搜索影响）
   const filteredArticles = dummyArticles.filter(article => {
     const matchCategory = selectedCategory === "all" || article.category === selectedCategory;
     const matchSearch = searchQuery === "" || 
@@ -22,257 +28,218 @@ export default function ArticlesPage() {
     return matchCategory && matchSearch;
   });
 
-  // 精选文章
-  const featuredArticles = dummyArticles.filter(a => a.featured);
+  // 最新文章（排除顶部大卡片显示的那篇，保留其他所有文章包括其他头条）
+  const latestArticles = filteredArticles.filter(a => a.id !== topStory?.id);
   
-  // 统计数据
-  const totalArticles = dummyArticles.length;
-  const totalViews = dummyArticles.reduce((sum, article) => sum + (article.views || 0), 0);
+  // 显示的文章（分页）
+  const displayedArticles = latestArticles.slice(0, displayCount);
+  const hasMore = displayCount < latestArticles.length;
+
+  // 无限滚动
+  useEffect(() => {
+    if (!loadMoreRef.current || !hasMore) return;
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        if (entries[0].isIntersecting) {
+          setTimeout(() => {
+            setDisplayCount(prev => Math.min(prev + 10, latestArticles.length));
+          }, 300);
+        }
+      },
+      { threshold: 0.1 }
+    );
+
+    observer.observe(loadMoreRef.current);
+    return () => observer.disconnect();
+  }, [hasMore, latestArticles.length]);
+
+  // 重置分页
+  useEffect(() => {
+    setDisplayCount(15);
+  }, [selectedCategory, searchQuery]);
 
   return (
     <>
-      {/* Hero 区域 */}
-      <section className="relative overflow-hidden py-20 gradient-bg">
-        {/* 背景装饰 */}
-        <div className="absolute inset-0 bg-grid-pattern opacity-5" />
-        <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-primary/20 rounded-full blur-3xl animate-float-slow" />
-        <div className="absolute bottom-0 left-0 w-[500px] h-[500px] bg-primary-light/20 rounded-full blur-3xl animate-float-slow-reverse" />
-
-        <div className="container mx-auto px-4 relative z-10">
-          <div className="max-w-4xl mx-auto text-center">
-            {/* 小标签 */}
-            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary/10 border border-primary/20 mb-6">
-              <BookOpen className="h-4 w-4 text-primary-light" />
-              <span className="text-sm font-medium text-gray-200">深度内容 · 持续更新</span>
-            </div>
-
-            {/* 主标题 */}
-            <h1 className="text-5xl md:text-6xl font-bold mb-6 tracking-tight">
-              <span className="text-white">文章</span>{" "}
-              <span className="bg-gradient-to-r from-primary to-primary-light bg-clip-text text-transparent">
-                知识库
-              </span>
-            </h1>
-
-            {/* 副标题 */}
-            <p className="text-xl text-gray-300 opacity-85 mb-12 max-w-2xl mx-auto leading-relaxed">
-              精选优质内容，涵盖入门教程、安全指南、交易技巧等，助你深入了解加密世界
-            </p>
-
-            {/* 搜索栏 */}
-            <div className="max-w-2xl mx-auto mb-10">
-              <div className="relative">
-                <Search className="absolute left-5 top-1/2 -translate-y-1/2 h-5 w-5 text-gray-400" />
-                <Input
-                  type="text"
-                  placeholder="搜索文章标题、标签..."
-                  value={searchQuery}
-                  onChange={(e) => setSearchQuery(e.target.value)}
-                  className="pl-14 h-14 rounded-2xl bg-white/10 backdrop-blur-sm border-white/20 text-white placeholder:text-gray-400 focus:bg-white/20 transition-colors"
-                />
-              </div>
-            </div>
-
-            {/* 统计数据 */}
-            <div className="grid grid-cols-2 md:grid-cols-3 gap-4 max-w-xl mx-auto">
-              <div className="bg-white/5 backdrop-blur-sm rounded-2xl p-5 border border-white/10">
-                <div className="text-3xl font-bold text-white mb-1">{totalArticles}</div>
-                <div className="text-xs text-gray-400">精选文章</div>
-              </div>
-              <div className="bg-white/5 backdrop-blur-sm rounded-2xl p-5 border border-white/10">
-                <div className="text-3xl font-bold text-white mb-1">{(totalViews / 1000).toFixed(1)}K</div>
-                <div className="text-xs text-gray-400">总阅读量</div>
-              </div>
-              <div className="bg-white/5 backdrop-blur-sm rounded-2xl p-5 border border-white/10 col-span-2 md:col-span-1">
-                <div className="text-3xl font-bold text-white mb-1">{dummyCategories.length}</div>
-                <div className="text-xs text-gray-400">内容分类</div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* 分类筛选 */}
-      <section className="py-8 bg-white dark:bg-gray-950 border-b border-gray-200 dark:border-gray-800 sticky top-16 z-30 backdrop-blur-lg bg-white/80 dark:bg-gray-950/80">
-        <div className="container mx-auto px-4">
-          <div className="flex flex-wrap gap-3 justify-center">
-            <Badge
-              variant={selectedCategory === "all" ? "default" : "outline"}
-              className="cursor-pointer px-5 py-2.5 text-sm hover:scale-105 transition-transform"
-              onClick={() => setSelectedCategory("all")}
-            >
-              全部文章
-            </Badge>
-            {dummyCategories.map((cat) => (
-              <Badge
-                key={cat.id}
-                variant={selectedCategory === cat.name ? "default" : "outline"}
-                className="cursor-pointer px-5 py-2.5 text-sm hover:scale-105 transition-transform"
-                onClick={() => setSelectedCategory(cat.name)}
-              >
-                {cat.name}
-                {cat.count && <span className="ml-1.5 text-xs opacity-70">({cat.count})</span>}
-              </Badge>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* 精选文章 */}
-      {selectedCategory === "all" && !searchQuery && (
-        <section className="py-20 bg-gradient-to-b from-white to-gray-50 dark:from-gray-950 dark:to-gray-900">
-          <div className="container mx-auto px-4">
-            {/* 标题 */}
-            <div className="text-center mb-12">
-              <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary/10 border border-primary/20 mb-4">
-                <Sparkles className="h-4 w-4 text-primary" />
-                <span className="text-sm font-medium text-primary">编辑推荐</span>
-              </div>
-              <h2 className="text-4xl font-bold mb-4">精选文章</h2>
-              <p className="text-lg text-gray-600 dark:text-gray-400 max-w-2xl mx-auto">
-                深度解析热门话题，由专家团队精心挑选
-              </p>
-            </div>
-
-            {/* 文章网格 */}
-            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-6xl mx-auto">
-              {featuredArticles.map((article) => (
-                <ArticleCard key={article.id} article={article} featured />
-              ))}
-            </div>
-          </div>
-        </section>
-      )}
-
-      {/* 最新文章 */}
-      <section className="py-20">
-        <div className="container mx-auto px-4">
-          <div className="max-w-6xl mx-auto">
-            {/* 标题 */}
-            <div className="mb-12">
-              <div className="flex items-center justify-between mb-6">
-                <div>
-                  <h2 className="text-4xl font-bold mb-2">
-                    {selectedCategory === "all" ? "全部文章" : `${selectedCategory}`}
-                  </h2>
-                  <p className="text-gray-600 dark:text-gray-400">
-                    共 {filteredArticles.length} 篇文章
-                    {searchQuery && ` · 搜索「${searchQuery}」`}
-                  </p>
+      {/* 主要内容区 */}
+      <div className="container mx-auto px-4 py-6">
+        <div className="max-w-6xl mx-auto">
+          
+          {/* 头条区域（不受分类影响） */}
+          {!searchQuery && topStory && (
+            <section className="mb-8">
+              {/* 头条大卡片 - 优化布局 */}
+              <Link href={`/articles/${topStory.slug || topStory.id}`}>
+                <div className="group cursor-pointer bg-white dark:bg-gray-900 rounded-[32px] overflow-hidden border-2 border-gray-200 dark:border-gray-800 hover:border-primary hover:shadow-2xl transition-all duration-500">
+                  <div className="md:flex">
+                    {/* 左侧图片 - 16:9 */}
+                    <div className="md:w-[40%] aspect-[16/9] md:aspect-[16/9] bg-white dark:bg-gray-800 border-b md:border-b-0 md:border-r border-gray-200 dark:border-gray-700 relative overflow-hidden">
+                      <div className="absolute inset-0 bg-gradient-to-br from-primary/10 to-primary-light/10" />
+                      <div className="absolute inset-0 flex items-center justify-center text-gray-300 dark:text-gray-600">
+                        <svg className="w-16 h-16" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                        </svg>
+                      </div>
+                    </div>
+                    
+                    {/* 右侧内容 - 60% */}
+                    <div className="md:w-[60%] p-6 md:p-8 flex flex-col justify-center">
+                      <div className="flex items-center gap-2 mb-4">
+                        <Badge variant="outline" className="text-xs">
+                          {topStory.category}
+                        </Badge>
+                      </div>
+                      
+                      <h2 className="text-2xl md:text-3xl font-bold mb-4 leading-tight group-hover:text-primary transition-colors">
+                        {topStory.title}
+                      </h2>
+                      
+                      <p className="text-gray-600 dark:text-gray-400 mb-4 line-clamp-2 leading-relaxed">
+                        {topStory.description}
+                      </p>
+                      
+                      <div className="flex items-center gap-3 text-sm text-gray-500 dark:text-gray-400">
+                        <span className="font-medium">{topStory.author.name}</span>
+                        <span>·</span>
+                        <span>{new Date(topStory.publishDate).toLocaleDateString("zh-CN")}</span>
+                        {topStory.views && (
+                          <>
+                            <span>·</span>
+                            <span>{topStory.views} 阅读</span>
+                          </>
+                        )}
+                      </div>
+                    </div>
+                  </div>
                 </div>
-                <TrendingUp className="h-8 w-8 text-primary" />
+              </Link>
+            </section>
+          )}
+
+          {/* 最新文章流 */}
+          <section>
+            {/* 标题 + 分类导航 */}
+            <div className="mb-6">
+              <div className="flex items-center justify-between mb-4">
+                <div className="flex items-center gap-3">
+                  <TrendingUp className="h-5 w-5 text-gray-400" />
+                  <h2 className="text-xl font-bold">最新资讯</h2>
+                  {searchQuery && (
+                    <span className="text-sm text-gray-500 dark:text-gray-400">
+                      · 搜索「{searchQuery}」
+                    </span>
+                  )}
+                </div>
+                
+                {/* 搜索按钮 */}
+                <Button
+                  variant="ghost"
+                  size="sm"
+                  className="gap-2"
+                  onClick={() => setShowSearch(!showSearch)}
+                >
+                  <Search className="h-4 w-4" />
+                  {!showSearch && <span className="text-sm">搜索</span>}
+                </Button>
+              </div>
+
+              {/* 搜索框（可展开） */}
+              {showSearch && (
+                <div className="mb-4">
+                  <div className="relative">
+                    <Search className="absolute left-4 top-1/2 -translate-y-1/2 h-4 w-4 text-gray-400" />
+                    <Input
+                      type="text"
+                      placeholder="搜索文章标题、标签..."
+                      value={searchQuery}
+                      onChange={(e) => setSearchQuery(e.target.value)}
+                      className="pl-11 h-12 rounded-2xl bg-white dark:bg-gray-900 border-2"
+                    />
+                  </div>
+                </div>
+              )}
+
+              {/* 分类导航 */}
+              <div className="flex items-center gap-2 overflow-x-auto pb-2 scrollbar-hide">
+                <Badge
+                  variant={selectedCategory === "all" ? "default" : "outline"}
+                  className="cursor-pointer px-4 py-2 text-sm whitespace-nowrap rounded-full hover:scale-105 transition-transform"
+                  onClick={() => setSelectedCategory("all")}
+                >
+                  全部
+                </Badge>
+                {dummyCategories.map((cat) => (
+                  <Badge
+                    key={cat.id}
+                    variant={selectedCategory === cat.name ? "default" : "outline"}
+                    className="cursor-pointer px-4 py-2 text-sm whitespace-nowrap rounded-full hover:scale-105 transition-transform"
+                    onClick={() => setSelectedCategory(cat.name)}
+                  >
+                    {cat.name}
+                  </Badge>
+                ))}
               </div>
             </div>
 
-            {/* 文章网格 */}
-            {filteredArticles.length > 0 ? (
+            {displayedArticles.length > 0 ? (
               <>
-                <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-                  {filteredArticles.map((article) => (
-                    <ArticleCard key={article.id} article={article} />
+                {/* 流式文章列表 */}
+                <div className="bg-white dark:bg-gray-900 rounded-2xl border-2 border-gray-200 dark:border-gray-800 overflow-hidden shadow-sm px-4">
+                  {displayedArticles.map((article, index) => (
+                    <div key={article.id}>
+                      <ArticleCard article={article} layout="horizontal" />
+                      {/* 模块之间的分隔线，最后一个不显示 */}
+                      {index < displayedArticles.length - 1 && (
+                        <div className="h-px bg-gray-100 dark:bg-gray-800" />
+                      )}
+                    </div>
                   ))}
                 </div>
 
-                {/* 分页占位 */}
-                <div className="mt-16 flex justify-center gap-2">
-                  {[1, 2, 3, 4, 5].map((page) => (
-                    <button
-                      key={page}
-                      className={`h-12 w-12 rounded-xl font-medium transition-all ${
-                        page === 1
-                          ? "bg-gradient-to-r from-primary to-primary-light text-white shadow-lg scale-110"
-                          : "bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-800 hover:border-primary hover:text-primary"
-                      }`}
-                    >
-                      {page}
-                    </button>
-                  ))}
-                </div>
+                {/* 加载更多触发器 */}
+                {hasMore && (
+                  <div ref={loadMoreRef} className="py-8 text-center">
+                    <div className="inline-flex items-center gap-2 text-sm text-gray-400">
+                      <div className="h-2 w-2 rounded-full bg-primary animate-bounce" />
+                      <div className="h-2 w-2 rounded-full bg-primary animate-bounce [animation-delay:0.2s]" />
+                      <div className="h-2 w-2 rounded-full bg-primary animate-bounce [animation-delay:0.4s]" />
+                      <span className="ml-2">加载中...</span>
+                    </div>
+                  </div>
+                )}
+
+                {/* 加载完成提示 */}
+                {!hasMore && displayedArticles.length > 15 && (
+                  <div className="py-6 text-center text-sm text-gray-400">
+                    已加载全部 {latestArticles.length} 篇文章
+                  </div>
+                )}
               </>
             ) : (
-              <div className="text-center py-20">
-                <BookOpen className="h-16 w-16 text-gray-400 mx-auto mb-4" />
-                <h3 className="text-xl font-semibold text-gray-600 dark:text-gray-400 mb-2">
+              <div className="text-center py-16 bg-white dark:bg-gray-900 rounded-2xl border-2 border-gray-200 dark:border-gray-800">
+                <Search className="h-12 w-12 text-gray-300 mx-auto mb-3" />
+                <h3 className="text-lg font-semibold text-gray-600 dark:text-gray-400 mb-2">
                   未找到相关文章
                 </h3>
-                <p className="text-gray-500 dark:text-gray-500 mb-6">
+                <p className="text-sm text-gray-500 dark:text-gray-500 mb-4">
                   试试其他关键词或浏览全部分类
                 </p>
                 <Button
                   variant="outline"
+                  size="sm"
                   onClick={() => {
                     setSearchQuery("");
                     setSelectedCategory("all");
+                    setShowSearch(false);
                   }}
                 >
                   清除筛选
                 </Button>
               </div>
             )}
-
-            {/* 热门标签 - 小模块 */}
-            <div className="mt-16 p-6 bg-gray-50 dark:bg-gray-900/50 rounded-2xl border border-gray-200 dark:border-gray-800">
-              <div className="flex items-center gap-3 mb-4">
-                <span className="text-sm font-medium text-gray-600 dark:text-gray-400">热门标签</span>
-                <div className="h-px flex-1 bg-gray-200 dark:bg-gray-800" />
-              </div>
-              <div className="flex flex-wrap gap-2">
-                {["比特币", "以太坊", "DeFi", "NFT", "钱包", "交易", "安全", "入门", "区块链", "稳定币", "Layer2", "Web3", "KYC", "提现", "合约"].map((tag, idx) => (
-                  <Badge
-                    key={idx}
-                    variant="outline"
-                    className="cursor-pointer hover:bg-primary hover:text-white hover:border-primary transition-all px-3 py-1.5 text-xs"
-                  >
-                    #{tag}
-                  </Badge>
-                ))}
-              </div>
-            </div>
-          </div>
+          </section>
         </div>
-      </section>
-
-      {/* CTA 区域 */}
-      <section className="py-20">
-        <div className="container mx-auto px-4">
-          <div className="max-w-4xl mx-auto">
-            <div className="relative bg-gradient-to-br from-primary to-primary-light rounded-[32px] p-12 text-center overflow-hidden shadow-2xl">
-              {/* 背景装饰 */}
-              <div className="absolute top-0 right-0 w-64 h-64 bg-white/10 rounded-full blur-3xl" />
-              <div className="absolute bottom-0 left-0 w-64 h-64 bg-white/10 rounded-full blur-3xl" />
-              
-              <div className="relative z-10">
-                <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/20 backdrop-blur-sm mb-6">
-                  <Sparkles className="h-4 w-4 text-white" />
-                  <span className="text-sm font-medium text-white">准备开始学习了吗？</span>
-                </div>
-                
-                <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">
-                  从入门到精通，一站式学习
-                </h2>
-                <p className="text-lg text-white/90 mb-8 max-w-2xl mx-auto">
-                  完整的学习路径和手把手教程，让你安全、高效地进入加密世界
-                </p>
-                
-                <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                  <Link href="/learn">
-                    <Button size="lg" className="text-base px-8 h-12 bg-white hover:bg-gray-100 text-gray-900 border-0 shadow-xl">
-                      开始学习
-                      <ArrowRight className="ml-2 h-5 w-5" />
-                    </Button>
-                  </Link>
-                  <Link href="/binance">
-                    <Button size="lg" className="text-base px-8 h-12 bg-white/20 hover:bg-white/30 text-white border-2 border-white/50">
-                      查看交易所教程
-                    </Button>
-                  </Link>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
+      </div>
     </>
   );
 }
-

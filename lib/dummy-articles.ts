@@ -15,7 +15,7 @@ export const dummyArticles: Article[] = [
   {
     id: 1,
     title: "比特币新手完全指南：从零开始了解BTC",
-    description: "全面介绍比特币的基本概念、工作原理、如何购买以及安全存储方法。适合完全没有接触过加密货币的新手阅读。",
+    description: "全面介绍比特币的基本概念、工作原理、如何购买以及安全存储方法。适合完全没有接触过加密货币的新手阅读，本文将带你从零开始系统了解比特币的方方面面，包括挖矿原理、交易机制、钱包类型选择等核心知识，让你在进入币圈之前打下坚实的理论基础。",
     content: "<p>这里是文章正文内容...</p>",
     author: { name: "加密小白", avatar: "" },
     coverImage: "",
@@ -45,7 +45,7 @@ export const dummyArticles: Article[] = [
   {
     id: 3,
     title: "现货交易 vs 合约交易：新手该如何选择？",
-    description: "对比现货和合约交易的区别、风险和收益特点，帮助新手找到适合自己的交易方式。",
+    description: "对比现货和合约交易的区别、风险和收益特点，帮助新手找到适合自己的交易方式。本文详细分析两种交易方式的优缺点。",
     content: "<p>这里是文章正文内容...</p>",
     author: { name: "交易达人", avatar: "" },
     coverImage: "",
@@ -60,7 +60,7 @@ export const dummyArticles: Article[] = [
   {
     id: 4,
     title: "MetaMask 钱包完整使用教程",
-    description: "从安装、创建钱包到连接 DApp，手把手教你使用最流行的以太坊钱包 MetaMask。",
+    description: "从安装、创建钱包到连接 DApp，手把手教你使用最流行的以太坊钱包 MetaMask。无论你是 DeFi 新手还是想探索 Web3 世界，这篇教程都能帮你快速上手，掌握钱包的基本操作和高级功能。",
     content: "<p>这里是文章正文内容...</p>",
     author: { name: "DeFi 玩家", avatar: "" },
     coverImage: "",
@@ -90,7 +90,7 @@ export const dummyArticles: Article[] = [
   {
     id: 6,
     title: "2024年Q4加密市场趋势分析",
-    description: "分析当前市场环境、监管动态、技术发展趋势，展望Q4可能的市场走向。",
+    description: "分析当前市场环境、监管动态、技术发展趋势，展望Q4可能的市场走向。本文基于链上数据和宏观经济指标，为投资者提供专业的市场分析和投资建议，帮助你在复杂的市场环境中把握机会、规避风险，做出更明智的投资决策。",
     content: "<p>这里是文章正文内容...</p>",
     author: { name: "市场分析师", avatar: "" },
     coverImage: "",
@@ -105,7 +105,7 @@ export const dummyArticles: Article[] = [
   {
     id: 7,
     title: "如何识别和避免加密货币诈骗",
-    description: "列举常见的诈骗手段，教你识别钓鱼网站、假客服、庞氏骗局等，保护资产安全。",
+    description: "列举常见的诈骗手段，教你识别钓鱼网站、假客服、庞氏骗局等，保护资产安全。加密货币诈骗层出不穷。",
     content: "<p>这里是文章正文内容...</p>",
     author: { name: "安全专家", avatar: "" },
     coverImage: "",
@@ -120,7 +120,7 @@ export const dummyArticles: Article[] = [
   {
     id: 8,
     title: "交易所提现到钱包：完整操作指南",
-    description: "详细说明如何从交易所安全地提现到个人钱包，包括网络选择、地址确认等关键步骤。",
+    description: "详细说明如何从交易所安全地提现到个人钱包，包括网络选择、地址确认等关键步骤。不懂如何提币？担心操作失误导致资产丢失？",
     content: "<p>这里是文章正文内容...</p>",
     author: { name: "加密小白", avatar: "" },
     coverImage: "",

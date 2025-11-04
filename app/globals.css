@@ -68,4 +68,120 @@
   background: linear-gradient(135deg, rgba(14, 165, 233, 0.1) 0%, rgba(34, 211, 238, 0.05) 100%);
 }
 
+/* Typography.js 风格 - 文章详情页 */
+.article-content {
+  @apply text-gray-700 dark:text-gray-300;
+  font-size: 1rem;
+  line-height: 1.625;
+}
+
+.article-content h1 {
+  @apply text-gray-900 dark:text-gray-100 font-semibold;
+  font-size: 2rem;
+  line-height: 1.1;
+  margin: 2.4375rem 0 1.21875rem;
+  padding-bottom: calc(0.40625rem - 1px);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.07);
+}
+
+.dark .article-content h1 {
+  border-bottom-color: rgba(255, 255, 255, 0.1);
+}
+
+.article-content h2 {
+  @apply text-gray-900 dark:text-gray-100 font-semibold;
+  font-size: 1.51572rem;
+  line-height: 1.1;
+  margin: 1.625rem 0 0.40625rem;
+  padding-bottom: calc(0.40625rem - 1px);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.07);
+}
+
+.dark .article-content h2 {
+  border-bottom-color: rgba(255, 255, 255, 0.1);
+}
+
+.article-content h3 {
+  @apply text-gray-900 dark:text-gray-100 font-semibold;
+  font-size: 1.31951rem;
+  line-height: 1.1;
+  margin: 1.625rem 0 0.8125rem;
+}
+
+.article-content p {
+  margin: 0 0 0.8125rem;
+  line-height: 1.625;
+}
+
+.article-content img {
+  max-width: 100%;
+  border-radius: 8px;
+  border: 1px solid rgba(51, 51, 51, 0.1);
+  margin: 0.8125rem 0;
+}
+
+.dark .article-content img {
+  border-color: rgba(255, 255, 255, 0.1);
+}
+
+.article-content blockquote {
+  @apply bg-gray-50 dark:bg-gray-900/50 text-gray-700 dark:text-gray-300;
+  padding: 1.5rem !important;
+  border-radius: 8px;
+  border-left: 4px solid;
+  @apply border-primary;
+  margin: 0.8125rem 0;
+}
+
+.article-content ul, 
+.article-content ol {
+  margin: 0 0 0.8125rem 2.03125rem;
+  line-height: 1.625;
+}
+
+.article-content li {
+  margin-bottom: calc(0.8125rem / 2);
+}
+
+.article-content code {
+  @apply bg-gray-100 dark:bg-gray-800 text-sm px-1.5 py-0.5 rounded;
+  font-size: 0.85rem;
+  line-height: 1.625rem;
+}
+
+.article-content pre {
+  @apply bg-gray-100 dark:bg-gray-800 p-4 rounded-lg overflow-x-auto;
+  font-size: 0.85rem;
+  line-height: 1.625rem;
+  margin: 0.8125rem 0;
+}
+
+.article-content pre code {
+  @apply bg-transparent p-0;
+}
+
+.article-content a {
+  @apply text-primary hover:underline;
+}
+
+.article-content strong {
+  @apply font-semibold text-gray-900 dark:text-gray-100;
+}
+
+.article-content table {
+  width: 100%;
+  margin: 0.8125rem 0;
+  border-collapse: collapse;
+}
+
+.article-content th,
+.article-content td {
+  @apply border border-gray-200 dark:border-gray-800 px-4 py-2;
+  text-align: left;
+}
+
+.article-content th {
+  @apply bg-gray-50 dark:bg-gray-900 font-semibold;
+}
+
 

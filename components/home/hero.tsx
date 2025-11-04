@@ -43,17 +43,17 @@ export function Hero() {
           </p>
 
           {/* CTA 按钮 */}
-          <div className="flex flex-col sm:flex-row gap-4 justify-center mb-16">
-            <Link href="/learn">
+          <div className="flex justify-center mb-16">
+            <a href="https://accounts.maxweb.red/register?ref=CRMBAO" target="_blank" rel="nofollow sponsored noopener noreferrer">
               <Button size="lg" className="text-base px-10 h-14 shadow-2xl shadow-primary/25">
-                开始学习
+                立即开始
               </Button>
-            </Link>
-            <Link href="/binance">
+            </a>
+            {/* <Link href="/binance">
               <Button size="lg" variant="outline" className="text-base px-10 h-14">
-                浏览教程
+                查看教程
               </Button>
-            </Link>
+            </Link> */}
           </div>
 
           {/* 信任指标 - 更简洁 */}

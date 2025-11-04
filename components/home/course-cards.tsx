@@ -1,158 +1,116 @@
 "use client";
 
-import Link from "next/link";
 import { Badge } from "@/components/ui/badge";
-import { Button } from "@/components/ui/button";
 import {
-  Bitcoin,
-  Wallet,
-  FileCheck,
-  CreditCard,
-  ShoppingCart,
-  ArrowDownToLine,
-  Calculator,
-  AlertTriangle,
-  Clock,
-  ArrowRight,
+  BookOpen,
+  Video,
+  FileText,
+  Sparkles,
+  CheckCircle2,
 } from "lucide-react";
 
-const courses = [
+const features = [
   {
-    icon: Bitcoin,
-    title: "BTC 是什么？",
-    description: "了解比特币与加密货币的基本概念",
-    duration: "5 分钟",
-    level: "入门",
-    color: "text-orange-500",
-    bgColor: "bg-orange-500/5 hover:bg-orange-500/10",
-  },
-  {
-    icon: Wallet,
-    title: "钱包 vs 交易所",
-    description: "理解托管与自托管的区别",
-    duration: "8 分钟",
-    level: "入门",
+    icon: BookOpen,
+    title: "系统化教程",
+    description: "从零开始，循序渐进掌握加密货币交易的每个环节",
     color: "text-blue-500",
-    bgColor: "bg-blue-500/5 hover:bg-blue-500/10",
+    bgGradient: "from-blue-500/10 to-cyan-500/10",
   },
   {
-    icon: FileCheck,
-    title: "KYC 身份认证",
-    description: "为什么需要 KYC，如何准备材料",
-    duration: "6 分钟",
-    level: "入门",
-    color: "text-green-500",
-    bgColor: "bg-green-500/5 hover:bg-green-500/10",
-  },
-  {
-    icon: CreditCard,
-    title: "如何入金",
-    description: "法币充值、C2C、银行卡的使用方法",
-    duration: "10 分钟",
-    level: "入门",
+    icon: Video,
+    title: "图文并茂",
+    description: "丰富的截图演示和详细步骤说明，让学习更加直观易懂",
     color: "text-purple-500",
-    bgColor: "bg-purple-500/5 hover:bg-purple-500/10",
+    bgGradient: "from-purple-500/10 to-pink-500/10",
   },
   {
-    icon: ShoppingCart,
-    title: "完成首单",
-    description: "现货交易、市价单、限价单详解",
-    duration: "12 分钟",
-    level: "初级",
-    color: "text-cyan-500",
-    bgColor: "bg-cyan-500/5 hover:bg-cyan-500/10",
+    icon: FileText,
+    title: "实时更新",
+    description: "紧跟平台最新变化，确保教程内容始终准确有效",
+    color: "text-green-500",
+    bgGradient: "from-green-500/10 to-emerald-500/10",
   },
-  {
-    icon: ArrowDownToLine,
-    title: "如何提现",
-    description: "转账到钱包、提现到银行卡",
-    duration: "10 分钟",
-    level: "初级",
-    color: "text-teal-500",
-    bgColor: "bg-teal-500/5 hover:bg-teal-500/10",
-  },
-  {
-    icon: Calculator,
-    title: "税务入门",
-    description: "加密货币税务的基本概念（各地规则不同）",
-    duration: "15 分钟",
-    level: "进阶",
-    color: "text-indigo-500",
-    bgColor: "bg-indigo-500/5 hover:bg-indigo-500/10",
-  },
-  {
-    icon: AlertTriangle,
-    title: "风险识别",
-    description: "识别诈骗、钓鱼网站、假客服",
-    duration: "8 分钟",
-    level: "必修",
-    color: "text-red-500",
-    bgColor: "bg-red-500/5 hover:bg-red-500/10",
-  },
+];
+
+const highlights = [
+  "注册与身份认证指南",
+  "入金提现完整流程",
+  "交易安全防护知识",
+  "常见问题解决方案",
 ];
 
 export function CourseCards() {
   return (
     <section className="py-20 bg-gray-50 dark:bg-gray-950/50">
       <div className="container mx-auto px-4">
-        {/* 标题区 */}
-        <div className="text-center mb-12">
-          <h2 className="text-4xl font-bold mb-4">新手课程</h2>
-          <p className="text-lg text-gray-600 dark:text-gray-400 max-w-2xl mx-auto mb-2">
-            从基础概念到实操指南，一站式学习
-          </p>
-          <div className="inline-flex items-center gap-2 text-sm text-gray-500">
-            <span>共 {courses.length} 门课程</span>
-            <span>·</span>
-            <span>完全免费</span>
+        <div className="max-w-6xl mx-auto">
+          {/* 标题区 */}
+          <div className="text-center mb-12">
+            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary/10 border border-primary/20 mb-4">
+              <Sparkles className="h-4 w-4 text-primary" />
+              <span className="text-sm font-medium text-primary">精心打造</span>
+            </div>
+            <h2 className="text-4xl font-bold mb-4">新手教程体系</h2>
+            <p className="text-lg text-gray-600 dark:text-gray-400 max-w-2xl mx-auto">
+              我们正在为你准备详尽的加密货币入门教程，帮助你安全、快速地开启交易之旅
+            </p>
           </div>
-        </div>
 
-        {/* 课程网格 - 紧凑轻量 */}
-        <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4 max-w-6xl mx-auto mb-8">
-          {courses.map((course, index) => (
-            <Link key={index} href="/learn">
+          {/* 特色卡片 */}
+          <div className="grid md:grid-cols-3 gap-6 mb-12">
+            {features.map((feature, index) => (
               <div
-                className={`group cursor-pointer ${course.bgColor} rounded-2xl p-5 transition-all duration-300 border border-transparent hover:border-gray-200 dark:hover:border-gray-800`}
+                key={index}
+                className={`relative bg-gradient-to-br ${feature.bgGradient} rounded-3xl p-8 border border-gray-200 dark:border-gray-800 hover:shadow-xl transition-all duration-300`}
               >
-                {/* 图标 */}
-                <div className="flex items-center gap-3 mb-3">
-                  <div className={`h-10 w-10 rounded-xl bg-white dark:bg-gray-900 flex items-center justify-center shrink-0 shadow-sm`}>
-                    <course.icon className={`h-5 w-5 ${course.color}`} />
+                <div className="mb-4">
+                  <div className="inline-flex h-14 w-14 rounded-2xl bg-white dark:bg-gray-900 items-center justify-center shadow-lg">
+                    <feature.icon className={`h-7 w-7 ${feature.color}`} />
                   </div>
-                  <Badge variant="outline" className="text-xs">
-                    {course.level}
-                  </Badge>
                 </div>
-
-                {/* 标题 */}
-                <h3 className="font-bold text-base mb-2 group-hover:text-primary transition-colors">
-                  {course.title}
-                </h3>
-
-                {/* 描述 */}
-                <p className="text-xs text-gray-600 dark:text-gray-400 leading-relaxed mb-3 line-clamp-2">
-                  {course.description}
+                <h3 className="text-xl font-bold mb-3">{feature.title}</h3>
+                <p className="text-sm text-gray-600 dark:text-gray-400 leading-relaxed">
+                  {feature.description}
                 </p>
-
-                {/* 时长 */}
-                <div className="flex items-center gap-1.5 text-xs text-gray-500">
-                  <Clock className="h-3.5 w-3.5" />
-                  <span>{course.duration}</span>
-                </div>
               </div>
-            </Link>
-          ))}
-        </div>
+            ))}
+          </div>
 
-        {/* 底部CTA */}
-        <div className="text-center mt-12">
-          <Link href="/learn">
-            <Button variant="ghost" size="lg" className="group">
-              查看全部课程
-              <ArrowRight className="ml-2 h-4 w-4 group-hover:translate-x-1 transition-transform" />
-            </Button>
-          </Link>
+          {/* 即将推出的内容 */}
+          <div className="bg-white dark:bg-gray-900 rounded-3xl p-8 md:p-12 border border-gray-200 dark:border-gray-800 shadow-lg">
+            <div className="text-center mb-8">
+              <Badge className="bg-primary/10 text-primary border-0 mb-4">
+                即将推出
+              </Badge>
+              <h3 className="text-2xl font-bold mb-3">教程内容抢先看</h3>
+              <p className="text-gray-600 dark:text-gray-400 max-w-xl mx-auto">
+                涵盖从账户注册到交易实操的全流程指导，让你轻松入门
+              </p>
+            </div>
+
+            <div className="grid md:grid-cols-2 gap-4 max-w-3xl mx-auto">
+              {highlights.map((item, index) => (
+                <div
+                  key={index}
+                  className="flex items-center gap-3 p-4 rounded-2xl bg-gray-50 dark:bg-gray-800/50 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"
+                >
+                  <CheckCircle2 className="h-5 w-5 text-primary shrink-0" />
+                  <span className="text-sm font-medium">{item}</span>
+                </div>
+              ))}
+            </div>
+
+            <div className="text-center mt-8">
+              <p className="text-sm text-gray-500">
+                在此之前，你可以先访问{" "}
+                <a href="/binance" className="text-primary hover:underline font-medium">
+                  交易所教程页面
+                </a>{" "}
+                开始了解
+              </p>
+            </div>
+          </div>
         </div>
       </div>
     </section>

@@ -16,6 +16,7 @@ const exchanges = [
     reviewCount: "12.5万",
     brandColor: "from-amber-400 to-yellow-500",
     icon: "B",
+    registerLink: "https://accounts.maxweb.red/register?ref=CRMBAO",
   },
   {
     name: "OKX",
@@ -27,6 +28,7 @@ const exchanges = [
     reviewCount: "8.3万",
     brandColor: "from-blue-500 to-cyan-500",
     icon: "O",
+    registerLink: "https://www.afibbjgrubxx.com/join/CRMBAO",
   },
 ];
 
@@ -48,17 +50,18 @@ export function ExchangeCards() {
         {/* 交易所卡片 - 左右排列 */}
         <div className="grid md:grid-cols-2 gap-6 max-w-6xl mx-auto">
           {exchanges.map((exchange) => (
-            <Link key={exchange.slug} href={`/${exchange.slug}`}>
-              <div className="group cursor-pointer h-full">
-                <div className="bg-white dark:bg-gray-900 rounded-[28px] overflow-hidden shadow-sm hover:shadow-2xl transition-all duration-500 border border-gray-200 dark:border-gray-800 h-full flex flex-col">
-                  <div className="p-6 flex flex-col h-full">
+            <div key={exchange.slug} className="group h-full">
+              <div className="bg-white dark:bg-gray-900 rounded-[28px] overflow-hidden shadow-sm hover:shadow-2xl transition-all duration-500 border border-gray-200 dark:border-gray-800 h-full flex flex-col">
+                <div className="p-6 flex flex-col h-full">
                     {/* 顶部：图标+标题 */}
                     <div className="flex items-start gap-4 mb-4">
                       {/* 品牌图标 */}
-                      <div className={`w-20 h-20 rounded-[18px] bg-gradient-to-br ${exchange.brandColor} shadow-lg flex items-center justify-center shrink-0 group-hover:scale-105 transition-transform duration-300`}>
-                        <span className="text-3xl font-bold text-white">
-                          {exchange.icon}
-                        </span>
+                      <div className={`w-20 h-20 rounded-[18px] overflow-hidden shadow-lg flex items-center justify-center shrink-0 group-hover:scale-105 transition-transform duration-300`}>
+                        <img 
+                          src={`/images/${exchange.slug}.png`} 
+                          alt={exchange.name}
+                          className="w-full h-full object-cover"
+                        />
                       </div>
                       
                       {/* 标题区 */}
@@ -113,31 +116,42 @@ export function ExchangeCards() {
                     </div>
 
                     {/* 底部按钮 */}
-                    <div className="pt-4 border-t border-gray-100 dark:border-gray-800">
-                      <Button
-                        className="w-full group-hover:scale-[1.02] transition-transform shadow-md"
-                        size="lg"
+                    <div className="pt-4 border-t border-gray-100 dark:border-gray-800 space-y-3">
+                      <a
+                        href={exchange.registerLink}
+                        target="_blank"
+                        rel="nofollow sponsored noopener noreferrer"
+                        className="block"
                       >
-                        查看详情
-                        <ArrowRight className="ml-2 h-4 w-4 group-hover:translate-x-1 transition-transform" />
-                      </Button>
-                    </div>
+                        <Button
+                          className="w-full group-hover:scale-[1.02] transition-transform shadow-md"
+                          size="lg"
+                        >
+                          立即注册
+                          <ArrowRight className="ml-2 h-4 w-4 group-hover:translate-x-1 transition-transform" />
+                        </Button>
+                      </a>
+                      <a
+                        href={exchange.registerLink}
+                        target="_blank"
+                        rel="nofollow sponsored noopener noreferrer"
+                        className="block"
+                      >
+                        <Button
+                          variant="outline"
+                          className="w-full group-hover:scale-[1.02] transition-transform"
+                          size="lg"
+                        >
+                          下载 App
+                        </Button>
+                      </a>
                   </div>
                 </div>
               </div>
-            </Link>
+            </div>
           ))}
         </div>
 
-        {/* 底部CTA */}
-        <div className="text-center mt-12">
-          <Link href="/binance">
-            <Button variant="ghost" size="lg" className="group">
-              查看全部交易所
-              <ArrowRight className="ml-2 h-4 w-4 group-hover:translate-x-1 transition-transform" />
-            </Button>
-          </Link>
-        </div>
       </div>
     </section>
   );

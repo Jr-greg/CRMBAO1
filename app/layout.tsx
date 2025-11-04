@@ -10,6 +10,9 @@ const inter = Inter({ subsets: ["latin"] });
 export const metadata: Metadata = {
   title: "入门宝 - 加密货币新手入门指南",
   description: "从零开始学习加密货币交易，提供Binance、OKX等主流交易所注册教程、新手课程、工具与FAQ。",
+  icons: {
+    icon: "/favicon.ico",
+  },
 };
 
 export default function RootLayout({

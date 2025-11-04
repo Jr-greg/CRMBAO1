@@ -1,3 +1,5 @@
+"use client";
+
 import Link from "next/link";
 import { Twitter, Github, Mail } from "lucide-react";
 
@@ -5,33 +7,16 @@ const footerLinks = {
   product: {
     title: "产品",
     links: [
-      { name: "新手入门", href: "/learn" },
-      { name: "交易所对比", href: "/binance" },
-      { name: "文章中心", href: "/articles" },
-      { name: "常见问题", href: "/faq" },
+      { name: "文章中心", href: "/articles", available: false },
+      { name: "新手入门", href: "/learn", available: false },
+      { name: "常见问题", href: "/faq", available: false },
     ],
   },
   exchanges: {
     title: "交易所",
     links: [
-      { name: "Binance 教程", href: "/binance" },
-      { name: "OKX 教程", href: "/okx" },
-    ],
-  },
-  resources: {
-    title: "资源",
-    links: [
-      { name: "新手课程", href: "/learn" },
-      { name: "安全指南", href: "/articles" },
-      { name: "术语表", href: "/learn#glossary" },
-    ],
-  },
-  legal: {
-    title: "法律信息",
-    links: [
-      { name: "信息披露", href: "/disclosure" },
-      { name: "免责声明", href: "/disclosure#disclaimer" },
-      { name: "隐私政策", href: "#" },
+      { name: "Binance 教程", href: "/binance", available: true },
+      { name: "OKX 教程", href: "/okx", available: true },
     ],
   },
 };
@@ -43,18 +28,23 @@ const socialLinks = [
 ];
 
 export function Footer() {
+  const handleLinkClick = (e: React.MouseEvent, link: { available: boolean }) => {
+    if (!link.available) {
+      e.preventDefault();
+      alert("Coming Soon 🚀\n\n该功能即将上线，敬请期待！");
+    }
+  };
+
   return (
     <footer className="bg-white dark:bg-gray-950 border-t border-gray-200 dark:border-gray-800">
       <div className="container mx-auto px-4">
         {/* 主要内容区 */}
         <div className="py-16">
-          <div className="grid grid-cols-2 md:grid-cols-6 gap-8 md:gap-12">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-8 md:gap-12">
             {/* 品牌区 - 占2列 */}
             <div className="col-span-2">
               <Link href="/" className="inline-flex items-center space-x-2 mb-5">
-                <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-gradient-to-br from-primary to-primary-light shadow-lg">
-                  <span className="text-xl font-bold text-white">入</span>
-                </div>
+                <img src="/logo.svg" alt="入门宝" className="h-8" />
                 <span className="text-xl font-bold">入门宝</span>
               </Link>
               <p className="text-sm text-gray-500 dark:text-gray-400 leading-relaxed mb-6 max-w-xs">
@@ -88,10 +78,16 @@ export function Footer() {
                   {section.links.map((link) => (
                     <li key={link.name}>
                       <Link
-                        href={link.href}
-                        className="text-sm text-gray-500 dark:text-gray-500 hover:text-primary transition-colors"
+                        href={link.available ? link.href : "#"}
+                        onClick={(e) => handleLinkClick(e, link)}
+                        className={`text-sm text-gray-500 dark:text-gray-500 hover:text-primary transition-colors ${!link.available ? 'opacity-60' : ''}`}
                       >
                         {link.name}
+                        {!link.available && (
+                          <span className="ml-1.5 text-[10px] px-1.5 py-0.5 rounded bg-gray-200 dark:bg-gray-700 text-gray-600 dark:text-gray-400">
+                            Soon
+                          </span>
+                        )}
                       </Link>
                     </li>
                   ))}
@@ -112,9 +108,6 @@ export function Footer() {
               <p className="text-xs text-gray-400 dark:text-gray-600 leading-relaxed text-center">
                 <span className="font-medium text-gray-500 dark:text-gray-500">合作关系披露：</span>
                 本站与部分平台存在商业合作关系，使用推荐链接不会增加您的费用，部分用户可享专属优惠。我们致力于提供客观、准确的信息。
-                <Link href="/disclosure" className="text-gray-500 dark:text-gray-500 hover:text-primary underline underline-offset-2 ml-1">
-                  详情
-                </Link>
               </p>
               <p className="text-xs text-gray-400 dark:text-gray-600 leading-relaxed text-center">
                 <span className="font-medium text-gray-500 dark:text-gray-500">风险提示：</span>

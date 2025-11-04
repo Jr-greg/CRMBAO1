@@ -2,14 +2,15 @@
 
 import * as React from "react";
 import { Button } from "@/components/ui/button";
-import { Copy, ExternalLink, Check } from "lucide-react";
+import { Copy, Check } from "lucide-react";
 
 interface FloatingCTAProps {
   exchangeName: string;
   inviteCode: string;
+  registerLink: string;
 }
 
-export function FloatingCTA({ exchangeName, inviteCode }: FloatingCTAProps) {
+export function FloatingCTA({ exchangeName, inviteCode, registerLink }: FloatingCTAProps) {
   const [copied, setCopied] = React.useState(false);
 
   const copyInviteCode = () => {
@@ -56,12 +57,11 @@ export function FloatingCTA({ exchangeName, inviteCode }: FloatingCTAProps) {
           asChild
         >
           <a
-            href="#"
+            href={registerLink}
             target="_blank"
             rel="nofollow sponsored noopener noreferrer"
           >
             去注册
-            <ExternalLink className="h-3 w-3 ml-1" />
           </a>
         </Button>
 
@@ -72,12 +72,11 @@ export function FloatingCTA({ exchangeName, inviteCode }: FloatingCTAProps) {
           asChild
         >
           <a
-            href="#"
+            href={registerLink}
             target="_blank"
             rel="nofollow sponsored noopener noreferrer"
           >
             下载 App
-            <ExternalLink className="h-3 w-3 ml-1" />
           </a>
         </Button>
       </div>
